@@ -1,0 +1,24 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userActivityRouter = void 0;
+const express_1 = __importDefault(require("express"));
+const EnvironmentVariables_1 = require("../../data/others/EnvironmentVariables");
+const userActivity_controller_1 = require("../../controllers/user-activity/userActivity.controller");
+const ApiAddresses_1 = require("../../data/others/ApiAddresses");
+const userActivityRouter = express_1.default.Router();
+exports.userActivityRouter = userActivityRouter;
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_LIKE_SOMETHING_API, userActivity_controller_1.likeSomethingController);
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_CHECKING_LIKE_API, userActivity_controller_1.checkLikeController);
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_DISLIKING_SOMETHING_API, userActivity_controller_1.dislikeSomethingController);
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_GETTING_TOTAL_NUMBER_OF_LIKES_API, userActivity_controller_1.getTotalNumberOfLikesController);
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_FOLLOW_SOMEONE_API, userActivity_controller_1.followSomeoneController);
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_MAKING_REPORT_API, userActivity_controller_1.makingReportsController);
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_GIVING_COMMENT_API, userActivity_controller_1.givingCommentController);
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_GETTING_COMMENTS_OF_SOMETHING_API, userActivity_controller_1.gettingCommentsOfSomethingController);
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_CHECKING_FOLLOWING_SOMETHING_OR_NOT_API, userActivity_controller_1.checkingIfASubjectIsFollowingSomethingOrNotController);
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_UNFOLLOW_SOMEONE_API, userActivity_controller_1.unfollowSomeoneController);
+userActivityRouter.post(EnvironmentVariables_1.SUB_ADDRESS_OF_GETTING_TOTAL_NUMBERS_OF_FOLLOWERS_OF_A_SUBJECT_API, userActivity_controller_1.gettingTotalNumberOfFollowersOfASubjectController);
+userActivityRouter.post(ApiAddresses_1.SUB_ADDRESS_OF_SEARCH_API_1, userActivity_controller_1.searching1Controller);
