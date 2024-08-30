@@ -23,6 +23,7 @@ const mySocket = new Server(server, {
 }); // Attach Socket.io to the HTTP server
 
 // USING SOME BASIC PACKAGES STARTS-----------------------------------------------------------------------------------------------------------------------------
+
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
@@ -45,8 +46,10 @@ app.use(gameRouter);
 // USING ROUTES ENDS------------------------------------------------------------------------------------------------------------------------
 
 connectDB();
-
-// Socket.io setup
+app.get("/", (request, response) => {
+  response.send("Server Started");
+});
+// Socket.io setup-------------------------------------------------------------------------------------------------------------------------------------
 mySocket.on("connect", (socket) => {
   socket.emit("message", "I am a message from server");
   socket.on("signalToSendGamingData", (data) => {

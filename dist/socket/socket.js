@@ -25,5 +25,5 @@ httpServer.listen(port, () => {
     console.log(`Socket Server is started at http://localhost:${port}`);
     setInterval(() => {
         (0, refineGamingData_1.default)();
-    }, 3000);
+    }, 1000);
 });

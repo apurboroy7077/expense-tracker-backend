@@ -45,7 +45,10 @@ app.use(projects_route_1.projectsRouter);
 app.use(game_route_1.default);
 // USING ROUTES ENDS------------------------------------------------------------------------------------------------------------------------
 (0, connectDB_1.connectDB)();
-// Socket.io setup
+app.get("/", (request, response) => {
+    response.send("Server Started");
+});
+// Socket.io setup-------------------------------------------------------------------------------------------------------------------------------------
 mySocket.on("connect", (socket) => {
     socket.emit("message", "I am a message from server");
     socket.on("signalToSendGamingData", (data) => {
