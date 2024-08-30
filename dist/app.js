@@ -16,7 +16,6 @@ const userActivity_route_1 = require("./routes/user-activity/userActivity.route"
 const admin_route_1 = require("./routes/admin/admin.route");
 const projects_route_1 = require("./routes/projects/projects.route");
 const game_route_1 = __importDefault(require("./routes/game/game.route"));
-const environment_variable_1 = require("./data/quiz-game/environment-variable");
 const sendGamingDataToUsers_1 = __importDefault(require("./socket/functions/send-gaming-data-to-users/sendGamingDataToUsers"));
 const app = (0, express_1.default)();
 const server = (0, http_1.createServer)(app); // Create an HTTP server
@@ -59,7 +58,4 @@ mySocket.on("connect", (socket) => {
         console.log("User disconnected");
     });
 });
-server.listen(environment_variable_1.SOCKET_SERVER_PORT, () => {
-    console.log(`Socket is running on http://localhost:${environment_variable_1.SOCKET_SERVER_PORT}`);
-});
-exports.default = app;
+exports.default = server;

@@ -62,8 +62,4 @@ mySocket.on("connect", (socket) => {
   });
 });
 
-server.listen(SOCKET_SERVER_PORT, () => {
-  console.log(`Socket is running on http://localhost:${SOCKET_SERVER_PORT}`);
-});
-
-export default app;
+export default server;

@@ -1,13 +1,6 @@
-import app from "./app";
-import { EXPRESS_SERVER_PORT } from "./data/quiz-game/environment-variable";
-import refineGamingData from "./socket/functions/refine-gaming-data/refineGamingData";
+import server from "./app";
+import { SOCKET_SERVER_PORT } from "./data/quiz-game/environment-variable";
 
-app.listen(EXPRESS_SERVER_PORT, () => {
-  console.log(
-    `Express is Started at tes http://localhost:${EXPRESS_SERVER_PORT}`
-  );
-  console.log("Refining Started");
-  setInterval(() => {
-    refineGamingData();
-  }, 3000);
+server.listen(SOCKET_SERVER_PORT, () => {
+  console.log(`Socket is running on http://localhost:${SOCKET_SERVER_PORT}`);
 });
