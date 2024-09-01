@@ -4,12 +4,16 @@ import removeRoomWithoutUsers from "./remove-room-without-users/removeRoomWithou
 import removeUnactivePlayer from "./remove-unactive-player/removeUnactivePlayer";
 
 const refineGamingData = async () => {
-  const gamingData = await getGamingData();
-  const dataAfterRemovingUnactivePlayer = removeUnactivePlayer(gamingData);
-  const dataAfterRemovingRoomWithoutUsers = removeRoomWithoutUsers(
-    dataAfterRemovingUnactivePlayer
-  );
-  await saveGamingData(dataAfterRemovingRoomWithoutUsers);
+  try {
+    const gamingData = await getGamingData();
+    const dataAfterRemovingUnactivePlayer = removeUnactivePlayer(gamingData);
+    const dataAfterRemovingRoomWithoutUsers = removeRoomWithoutUsers(
+      dataAfterRemovingUnactivePlayer
+    );
+    await saveGamingData(dataAfterRemovingRoomWithoutUsers);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default refineGamingData;

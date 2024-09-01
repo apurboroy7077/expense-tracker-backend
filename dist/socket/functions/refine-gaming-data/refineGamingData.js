@@ -17,10 +17,15 @@ const getGamingData_1 = __importDefault(require("../get-gaming-data/getGamingDat
 const removeRoomWithoutUsers_1 = __importDefault(require("./remove-room-without-users/removeRoomWithoutUsers"));
 const removeUnactivePlayer_1 = __importDefault(require("./remove-unactive-player/removeUnactivePlayer"));
 const refineGamingData = () => __awaiter(void 0, void 0, void 0, function* () {
-    const gamingData = yield (0, getGamingData_1.default)();
-    const dataAfterRemovingUnactivePlayer = (0, removeUnactivePlayer_1.default)(gamingData);
-    const dataAfterRemovingRoomWithoutUsers = (0, removeRoomWithoutUsers_1.default)(dataAfterRemovingUnactivePlayer);
-    yield (0, saveGamingData_1.default)(dataAfterRemovingRoomWithoutUsers);
+    try {
+        const gamingData = yield (0, getGamingData_1.default)();
+        const dataAfterRemovingUnactivePlayer = (0, removeUnactivePlayer_1.default)(gamingData);
+        const dataAfterRemovingRoomWithoutUsers = (0, removeRoomWithoutUsers_1.default)(dataAfterRemovingUnactivePlayer);
+        yield (0, saveGamingData_1.default)(dataAfterRemovingRoomWithoutUsers);
+    }
+    catch (error) {
+        console.log(error);
+    }
 });
 exports.default = refineGamingData;
 //

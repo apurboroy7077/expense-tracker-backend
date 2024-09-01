@@ -7,7 +7,6 @@ const express_1 = __importDefault(require("express"));
 const http_1 = require("http");
 const socket_io_1 = require("socket.io");
 const authenticationRoutes_route_1 = require("./routes/authentication/authenticationRoutes.route");
-const connectDB_1 = require("./custom-functions/database/connectDB");
 const testingRouter_route_1 = require("./routes/test/testingRouter.route");
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
@@ -17,6 +16,8 @@ const admin_route_1 = require("./routes/admin/admin.route");
 const projects_route_1 = require("./routes/projects/projects.route");
 const game_route_1 = __importDefault(require("./routes/game/game.route"));
 const sendGamingDataToUsers_1 = __importDefault(require("./socket/functions/send-gaming-data-to-users/sendGamingDataToUsers"));
+const startGame_1 = __importDefault(require("./custom-functions/start-game-function/startGame"));
+const stopGame_1 = __importDefault(require("./custom-functions/stop-game-function/stopGame"));
 const app = (0, express_1.default)();
 const server = (0, http_1.createServer)(app); // Create an HTTP server
 const mySocket = new socket_io_1.Server(server, {
@@ -43,19 +44,26 @@ app.use(admin_route_1.adminRouter);
 app.use(projects_route_1.projectsRouter);
 app.use(game_route_1.default);
 // USING ROUTES ENDS------------------------------------------------------------------------------------------------------------------------
-(0, connectDB_1.connectDB)();
+// connectDB();
 app.get("/", (request, response) => {
     response.send("Server Started");
 });
 // Socket.io setup-------------------------------------------------------------------------------------------------------------------------------------
 mySocket.on("connect", (socket) => {
+    console.log("User Connected");
     socket.emit("message", "I am a message from server");
     socket.on("signalToSendGamingData", (data) => {
         (0, sendGamingDataToUsers_1.default)(socket, data);
     });
-    socket.on("startGame", (data) => { });
+    socket.on("startGame", (data) => {
+        (0, startGame_1.default)(data);
+    });
+    socket.on("stopGame", (data) => {
+        (0, stopGame_1.default)(data);
+    });
     socket.on("disconnect", () => {
         console.log("User disconnected");
     });
 });
 exports.default = server;
+//

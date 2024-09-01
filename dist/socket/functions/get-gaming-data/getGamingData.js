@@ -15,8 +15,13 @@ const getGamingData = () => {
                     reject(error);
                 }
                 else {
-                    const dataAR7 = JSON.parse(data);
-                    resolve(dataAR7);
+                    if (data) {
+                        const dataAR7 = JSON.parse(data);
+                        resolve(dataAR7);
+                    }
+                    else {
+                        reject("No Data Exists");
+                    }
                 }
             });
         }

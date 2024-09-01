@@ -13,6 +13,8 @@ import { projectsRouter } from "./routes/projects/projects.route";
 import gameRouter from "./routes/game/game.route";
 import { SOCKET_SERVER_PORT } from "./data/quiz-game/environment-variable";
 import sendGamingDataToUsers from "./socket/functions/send-gaming-data-to-users/sendGamingDataToUsers";
+import startGame from "./custom-functions/start-game-function/startGame";
+import stopGame from "./custom-functions/stop-game-function/stopGame";
 
 const app = express();
 const server = createServer(app); // Create an HTTP server
@@ -45,17 +47,23 @@ app.use(projectsRouter);
 app.use(gameRouter);
 // USING ROUTES ENDS------------------------------------------------------------------------------------------------------------------------
 
-connectDB();
+// connectDB();
 app.get("/", (request, response) => {
   response.send("Server Started");
 });
 // Socket.io setup-------------------------------------------------------------------------------------------------------------------------------------
 mySocket.on("connect", (socket) => {
+  console.log("User Connected");
   socket.emit("message", "I am a message from server");
   socket.on("signalToSendGamingData", (data) => {
     sendGamingDataToUsers(socket, data);
   });
-  socket.on("startGame", (data) => {});
+  socket.on("startGame", (data) => {
+    startGame(data);
+  });
+  socket.on("stopGame", (data) => {
+    stopGame(data);
+  });
 
   socket.on("disconnect", () => {
     console.log("User disconnected");
@@ -63,3 +71,4 @@ mySocket.on("connect", (socket) => {
 });
 
 export default server;
+//

@@ -23,8 +23,14 @@ type RoomData = {
   allQuestions: Question[];
   usersData: User[];
   creationTime: number;
+  gameRunningStatus?: "RUNNING" | "NOT_RUNNING";
 };
 
 // If the data is an array of RoomData
 type RoomDataArray = RoomData[];
 type gameDataType = RoomDataArray;
+
+type dataFromClientForStoppingAndStartingGameType = {
+  roomId: string;
+  playerId: string;
+};
