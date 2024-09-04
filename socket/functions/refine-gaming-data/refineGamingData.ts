@@ -1,5 +1,7 @@
 import saveGamingData from "../../../custom-functions/file-system/saveGamingData";
 import getGamingData from "../get-gaming-data/getGamingData";
+import makeCountDown from "./make-countdown/makeCountDown";
+import moveToNextQuestion from "./move-to-next-question/moveToNextQuestion";
 import removeRoomWithoutUsers from "./remove-room-without-users/removeRoomWithoutUsers";
 import removeUnactivePlayer from "./remove-unactive-player/removeUnactivePlayer";
 
@@ -10,7 +12,13 @@ const refineGamingData = async () => {
     const dataAfterRemovingRoomWithoutUsers = removeRoomWithoutUsers(
       dataAfterRemovingUnactivePlayer
     );
-    await saveGamingData(dataAfterRemovingRoomWithoutUsers);
+    const dataAfterMakingCountdown = makeCountDown(
+      dataAfterRemovingRoomWithoutUsers
+    );
+    const dataAfterMovingToNextQuestion = moveToNextQuestion(
+      dataAfterMakingCountdown
+    );
+    await saveGamingData(dataAfterMovingToNextQuestion);
   } catch (error) {
     console.log(error);
   }

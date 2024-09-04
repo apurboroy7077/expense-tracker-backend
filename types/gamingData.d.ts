@@ -24,6 +24,7 @@ type RoomData = {
   usersData: User[];
   creationTime: number;
   gameRunningStatus?: "RUNNING" | "NOT_RUNNING";
+  countDownTimerTime?: number;
 };
 
 // If the data is an array of RoomData
