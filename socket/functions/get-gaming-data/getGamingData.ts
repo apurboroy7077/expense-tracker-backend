@@ -15,7 +15,7 @@ const getGamingData: getGamingFunctionDataType = () => {
             const dataAR7 = JSON.parse(data) as gameDataType;
             resolve(dataAR7);
           } else {
-            reject("No Data Exists");
+            resolve([]);
           }
         }
       });

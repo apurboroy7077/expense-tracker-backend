@@ -35,3 +35,8 @@ type dataFromClientForStoppingAndStartingGameType = {
   roomId: string;
   playerId: string;
 };
+
+type dataTypeForIncreasingPlayerScore = {
+  roomId: string;
+  playerId: string;
+};

@@ -20,7 +20,7 @@ const getGamingData = () => {
                         resolve(dataAR7);
                     }
                     else {
-                        reject("No Data Exists");
+                        resolve([]);
                     }
                 }
             });

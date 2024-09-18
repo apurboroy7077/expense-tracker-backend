@@ -1,6 +1,4 @@
 import express from "express";
-import { createServer } from "http";
-import { Server } from "socket.io";
 import { authenticationRouter } from "./routes/authentication/authenticationRoutes.route";
 import { connectDB } from "./custom-functions/database/connectDB";
 import { testingRouter } from "./routes/test/testingRouter.route";
@@ -11,18 +9,10 @@ import { userActivityRouter } from "./routes/user-activity/userActivity.route";
 import { adminRouter } from "./routes/admin/admin.route";
 import { projectsRouter } from "./routes/projects/projects.route";
 import gameRouter from "./routes/game/game.route";
-import { SOCKET_SERVER_PORT } from "./data/quiz-game/environment-variable";
-import sendGamingDataToUsers from "./socket/functions/send-gaming-data-to-users/sendGamingDataToUsers";
-import startGame from "./custom-functions/start-game-function/startGame";
-import stopGame from "./custom-functions/stop-game-function/stopGame";
+import { connectToMySqlDatabase } from "./custom-functions/database/mysql/connectMySql";
+import { mySqlRouter } from "./routes/mysql/mysql.route";
 
-const app = express();
-const server = createServer(app); // Create an HTTP server
-const mySocket = new Server(server, {
-  cors: {
-    origin: "*",
-  },
-}); // Attach Socket.io to the HTTP server
+const app = express(); // Create an Express app
 
 // USING SOME BASIC PACKAGES STARTS-----------------------------------------------------------------------------------------------------------------------------
 
@@ -45,30 +35,13 @@ app.use(userActivityRouter);
 app.use(adminRouter);
 app.use(projectsRouter);
 app.use(gameRouter);
+app.use(mySqlRouter);
 // USING ROUTES ENDS------------------------------------------------------------------------------------------------------------------------
 
 // connectDB();
+connectToMySqlDatabase();
 app.get("/", (request, response) => {
   response.send("Server Started");
 });
-// Socket.io setup-------------------------------------------------------------------------------------------------------------------------------------
-mySocket.on("connect", (socket) => {
-  console.log("User Connected");
-  socket.emit("message", "I am a message from server");
-  socket.on("signalToSendGamingData", (data) => {
-    sendGamingDataToUsers(socket, data);
-  });
-  socket.on("startGame", (data) => {
-    startGame(data);
-  });
-  socket.on("stopGame", (data) => {
-    stopGame(data);
-  });
 
-  socket.on("disconnect", () => {
-    console.log("User disconnected");
-  });
-});
-
-export default server;
-//
+export default app;
