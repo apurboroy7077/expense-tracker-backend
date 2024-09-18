@@ -1,3 +1,4 @@
+import { register } from "module";
 import { mySqlConnection } from "../../../custom-functions/database/mysql/connectMySql";
 
 const saveUserDataToVerifiedDatabase = (
@@ -24,6 +25,7 @@ const saveUserDataToVerifiedDatabase = (
       mySqlConnection.query(sqlQueryToSaveData, valuesTosave, (error) => {
         if (error) {
           console.log(error);
+          reject(error);
         } else {
           console.log("Verified Account Successfully");
           resolve("Verified Account Successfully");
